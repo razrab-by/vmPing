@@ -177,9 +177,12 @@ namespace vmPing.Views
 
         private void PopulateDisplayOptions()
         {
+            IsAlwaysShowTrayIconEnabled.IsChecked = ApplicationOptions.IsAlwaysShowTrayIconEnabled;
+            IsStartMinimizedEnabled.IsChecked = ApplicationOptions.IsStartMinimizedEnabled;
             IsAlwaysOnTopEnabled.IsChecked = ApplicationOptions.IsAlwaysOnTopEnabled;
             IsMinimizeToTrayEnabled.IsChecked = ApplicationOptions.IsMinimizeToTrayEnabled;
             IsExitToTrayEnabled.IsChecked = ApplicationOptions.IsExitToTrayEnabled;
+            IsChangeTrayIconColorEnabled.IsChecked = ApplicationOptions.IsChangeTrayIconColorEnabled;
         }
 
         private void PopulateLayoutOptions()
@@ -585,9 +588,12 @@ namespace vmPing.Views
 
         private bool SaveDisplayOptions()
         {
+            ApplicationOptions.IsAlwaysShowTrayIconEnabled = IsAlwaysShowTrayIconEnabled.IsChecked == true;
+            ApplicationOptions.IsStartMinimizedEnabled = IsStartMinimizedEnabled.IsChecked == true;
             ApplicationOptions.IsAlwaysOnTopEnabled = IsAlwaysOnTopEnabled.IsChecked == true;
             ApplicationOptions.IsMinimizeToTrayEnabled = IsMinimizeToTrayEnabled.IsChecked == true;
             ApplicationOptions.IsExitToTrayEnabled = IsExitToTrayEnabled.IsChecked == true;
+            ApplicationOptions.IsChangeTrayIconColorEnabled = IsChangeTrayIconColorEnabled.IsChecked == true;
 
             return true;
         }

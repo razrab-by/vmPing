@@ -22,6 +22,7 @@ namespace vmPing.Classes
             Favorite = 2
         }
 
+        public static string FavoriteToStartWith { get; set; }
         public static int PingInterval { get; set; } = Constants.DefaultInterval;
         public static int PingTimeout { get; set; } = Constants.DefaultTimeout;
         public static int AlertThreshold { get; set; } = 2;
@@ -55,8 +56,12 @@ namespace vmPing.Classes
         public static int InitialColumnCount { get; set; } = 2;
         public static string InitialFavorite { get; set; } = null;
         public static bool IsAlwaysOnTopEnabled { get; set; } = false;
+        public static bool IsStartMinimizedEnabled { get; set; } = false;
+        public static bool IsAlwaysShowTrayIconEnabled { get; set; } = true;
         public static bool IsMinimizeToTrayEnabled { get; set; } = false;
         public static bool IsExitToTrayEnabled { get; set; } = false;
+
+        public static bool IsChangeTrayIconColorEnabled { get; set; } = false;
 
         // Font sizes.
         //public static string FontFamily_Alias { get; set; }

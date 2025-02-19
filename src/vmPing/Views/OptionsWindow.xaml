@@ -658,7 +658,25 @@
                             Keep the vmPing application on top and always visible over other windows.
                         </Label>
                     </DockPanel>
-                    <!-- Minimze to tray -->
+                    <!--IsStartMinimizedEnabled-->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,15,0,0">
+                        <CheckBox DockPanel.Dock="Left"
+                                  Name="IsStartMinimizedEnabled"
+                                  Content="Start minimized"/>
+                        <Label DockPanel.Dock="Left" Style="{StaticResource LabelToolTip}">
+                            Start the vmPing application minimized.
+                        </Label>
+                    </DockPanel>
+                    <!-- Always show tray icon -->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,15,0,0">
+                        <CheckBox DockPanel.Dock="Left"
+                                  Name="IsAlwaysShowTrayIconEnabled"
+                                  Content="Always show tray icon"/>
+                        <Label DockPanel.Dock="Left" Style="{StaticResource LabelToolTip}">
+                            Always place an icon in the system tray for vmPing.
+                        </Label>
+                    </DockPanel>
+                    <!-- Minimize to tray -->
                     <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,15,0,0">
                         <CheckBox DockPanel.Dock="Left"
                                   Name="IsMinimizeToTrayEnabled"
@@ -685,6 +703,25 @@
                         <Label DockPanel.Dock="Left" Style="{StaticResource LabelToolTip}">
                             <TextBlock>
                                 When closing vmPing, the application will minimize to the system tray rather than exit. Right-click the tray icon to exit.
+                                <LineBreak/>
+                                <LineBreak/>
+                                To keep the system tray icon always visible:
+                                <LineBreak/>
+                                Right-click the Windows taskbar and choose 'Taskbar settings'.
+                                Under 'Notifications area' click 'Select which icons to appear on the taskbar'. Look for vmPing and set to 'On'.
+                                <LineBreak/>
+                                (Steps may vary)
+                            </TextBlock>
+                        </Label>
+                    </DockPanel>
+                    <!-- Change Tray Icon Color -->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,15,0,0">
+                        <CheckBox DockPanel.Dock="Left"
+                                  Name="IsChangeTrayIconColorEnabled"
+                                  Content="Change tray icon based on ping status,"/>
+                        <Label DockPanel.Dock="Left" Style="{StaticResource LabelToolTip}">
+                            <TextBlock>
+                                Set the tray icon color to green when all pings are successful. Red when one or more pings are unsuccessful.
                                 <LineBreak/>
                                 <LineBreak/>
                                 To keep the system tray icon always visible:

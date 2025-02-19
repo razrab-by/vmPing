@@ -243,11 +243,20 @@ namespace vmPing.Classes
                     new XAttribute("name", "IsAlwaysOnTopEnabled"),
                     ApplicationOptions.IsAlwaysOnTopEnabled),
                 new XElement("option",
+                    new XAttribute("name", "IsStartMinimizedEnabled"),
+                    ApplicationOptions.IsStartMinimizedEnabled),
+                new XElement("option",
+                    new XAttribute("name", "IsAlwaysShowTrayIconEnabled"),
+                    ApplicationOptions.IsAlwaysShowTrayIconEnabled),
+                new XElement("option",
                     new XAttribute("name", "IsMinimizeToTrayEnabled"),
                     ApplicationOptions.IsMinimizeToTrayEnabled),
                 new XElement("option",
                     new XAttribute("name", "IsExitToTrayEnabled"),
-                    ApplicationOptions.IsExitToTrayEnabled));
+                    ApplicationOptions.IsExitToTrayEnabled),
+                new XElement("option",
+                    new XAttribute("name", "IsChangeTrayIconColorEnabled"),
+                    ApplicationOptions.IsChangeTrayIconColorEnabled));
 
             return configuration;
         }
@@ -625,6 +634,14 @@ namespace vmPing.Classes
                 if (optionValue.Length > 0)
                     ApplicationOptions.EmailPassword = Util.DecryptStringAES(optionValue);
             }
+            if (options.TryGetValue("IsAlwaysShowTrayIconEnabled", out optionValue))
+            {
+                ApplicationOptions.IsAlwaysShowTrayIconEnabled = bool.Parse(optionValue);
+            }
+            if (options.TryGetValue("IsStartMinimizedEnabled", out optionValue))
+            {
+                ApplicationOptions.IsStartMinimizedEnabled = bool.Parse(optionValue);
+            }
             if (options.TryGetValue("IsAlwaysOnTopEnabled", out optionValue))
             {
                 ApplicationOptions.IsAlwaysOnTopEnabled = bool.Parse(optionValue);
@@ -636,6 +653,10 @@ namespace vmPing.Classes
             if (options.TryGetValue("IsExitToTrayEnabled", out optionValue))
             {
                 ApplicationOptions.IsExitToTrayEnabled = bool.Parse(optionValue);
+            }
+            if (options.TryGetValue("IsChangeTrayIconColorEnabled", out optionValue))
+            {
+                ApplicationOptions.IsChangeTrayIconColorEnabled = bool.Parse(optionValue);
             }
         }
     }
