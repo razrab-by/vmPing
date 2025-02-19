@@ -56,6 +56,8 @@ namespace vmPing.Classes
         public static int InitialColumnCount { get; set; } = 2;
         public static string InitialFavorite { get; set; } = null;
         public static bool IsAlwaysOnTopEnabled { get; set; } = false;
+        public static bool IsStartMinimizedEnabled { get; set; } = false;
+        public static bool IsAlwaysShowTrayIconEnabled { get; set; } = true;
         public static bool IsMinimizeToTrayEnabled { get; set; } = false;
         public static bool IsExitToTrayEnabled { get; set; } = false;
 

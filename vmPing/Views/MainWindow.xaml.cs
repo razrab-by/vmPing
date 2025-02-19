@@ -45,15 +45,12 @@ namespace vmPing.Views
             LoadFavorites();
             LoadAliases();
             Configuration.Load();
-            RefreshGuiState();
+            RefreshGuiState(true);
 
             // Set items source for main GUI ItemsControl.
             ProbeItemsControl.ItemsSource = _ProbeCollection;
 
             _TrayNegativeStatusList.Add(ProbeStatus.Down);
-
-            CreateTrayIcon();
-            RestoreFromTray();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -144,7 +141,7 @@ namespace vmPing.Views
             ColumnCount.Value = favorite.ColumnCount;
         }
 
-        private void RefreshGuiState()
+        private void RefreshGuiState(bool startup = false)
         {
             // Set popup option on menu bar.
             PopupAlways.IsChecked = false;
@@ -180,6 +177,27 @@ namespace vmPing.Views
                 {
                     probe.IsolatedWindow.Topmost = ApplicationOptions.IsAlwaysOnTopEnabled;
                 }
+            }
+
+            if (startup)
+            {
+                if (ApplicationOptions.IsStartMinimizedEnabled)
+                {
+                    HideToTray();
+                }
+                else if (ApplicationOptions.IsAlwaysShowTrayIconEnabled)
+                {
+                    CreateTrayIcon();
+                    RestoreFromTray();
+                }
+            }
+            else
+            {
+                if (ApplicationOptions.IsAlwaysShowTrayIconEnabled)
+                {
+                    CreateTrayIcon();
+                }
+                RestoreFromTray();
             }
         }
 
@@ -819,8 +837,13 @@ namespace vmPing.Views
 
         private void RestoreFromTray()
         {
-            // Do not hide the main window
-            // NotifyIcon.Visible = false;
+            if (!ApplicationOptions.IsAlwaysShowTrayIconEnabled)
+            {
+                if (NotifyIcon != null)
+                {
+                    NotifyIcon.Visible = false;
+                }
+            }
 
             WindowState = WindowState.Minimized;
             Visibility = Visibility.Visible;

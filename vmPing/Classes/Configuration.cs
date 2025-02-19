@@ -243,6 +243,12 @@ namespace vmPing.Classes
                     new XAttribute("name", "IsAlwaysOnTopEnabled"),
                     ApplicationOptions.IsAlwaysOnTopEnabled),
                 new XElement("option",
+                    new XAttribute("name", "IsStartMinimizedEnabled"),
+                    ApplicationOptions.IsStartMinimizedEnabled),
+                new XElement("option",
+                    new XAttribute("name", "IsAlwaysShowTrayIconEnabled"),
+                    ApplicationOptions.IsAlwaysShowTrayIconEnabled),
+                new XElement("option",
                     new XAttribute("name", "IsMinimizeToTrayEnabled"),
                     ApplicationOptions.IsMinimizeToTrayEnabled),
                 new XElement("option",
@@ -627,6 +633,14 @@ namespace vmPing.Classes
             {
                 if (optionValue.Length > 0)
                     ApplicationOptions.EmailPassword = Util.DecryptStringAES(optionValue);
+            }
+            if (options.TryGetValue("IsAlwaysShowTrayIconEnabled", out optionValue))
+            {
+                ApplicationOptions.IsAlwaysShowTrayIconEnabled = bool.Parse(optionValue);
+            }
+            if (options.TryGetValue("IsStartMinimizedEnabled", out optionValue))
+            {
+                ApplicationOptions.IsStartMinimizedEnabled = bool.Parse(optionValue);
             }
             if (options.TryGetValue("IsAlwaysOnTopEnabled", out optionValue))
             {

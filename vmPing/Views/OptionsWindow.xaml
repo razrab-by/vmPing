@@ -658,7 +658,25 @@
                             Keep the vmPing application on top and always visible over other windows.
                         </Label>
                     </DockPanel>
-                    <!-- Minimze to tray -->
+                    <!--IsStartMinimizedEnabled-->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,15,0,0">
+                        <CheckBox DockPanel.Dock="Left"
+                                  Name="IsStartMinimizedEnabled"
+                                  Content="Start minimized"/>
+                        <Label DockPanel.Dock="Left" Style="{StaticResource LabelToolTip}">
+                            Start the vmPing application minimized.
+                        </Label>
+                    </DockPanel>
+                    <!-- Always show tray icon -->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,15,0,0">
+                        <CheckBox DockPanel.Dock="Left"
+                                  Name="IsAlwaysShowTrayIconEnabled"
+                                  Content="Always show tray icon"/>
+                        <Label DockPanel.Dock="Left" Style="{StaticResource LabelToolTip}">
+                            Always place an icon in the system tray for vmPing.
+                        </Label>
+                    </DockPanel>
+                    <!-- Minimize to tray -->
                     <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,15,0,0">
                         <CheckBox DockPanel.Dock="Left"
                                   Name="IsMinimizeToTrayEnabled"
@@ -696,7 +714,7 @@
                             </TextBlock>
                         </Label>
                     </DockPanel>
-                    <!-- Exit to tray -->
+                    <!-- Change Tray Icon Color -->
                     <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,15,0,0">
                         <CheckBox DockPanel.Dock="Left"
                                   Name="IsChangeTrayIconColorEnabled"
