@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using vmPing.Classes;
 using vmPing.Properties;
 
@@ -270,16 +271,10 @@ namespace vmPing.Views
                         green = false;
                 }
 
-                if (green)
-                {
-                    NotifyIcon.Icon = new System.Drawing.Icon(Application
-                        .GetResourceStream(new Uri("pack://application:,,,/vmPing-green.ico")).Stream);
-                }
-                else
-                {
-                    NotifyIcon.Icon = new System.Drawing.Icon(Application
-                        .GetResourceStream(new Uri("pack://application:,,,/vmPing.ico")).Stream);
-                }
+                Uri uri = green ? new Uri("pack://application:,,,/vmPing-green.ico") : new Uri("pack://application:,,,/vmPing.ico");
+
+                NotifyIcon.Icon = new System.Drawing.Icon(Application.GetResourceStream(uri).Stream);
+                Dispatcher.BeginInvoke((Action)(() => { Icon = new BitmapImage(uri); }));
             }
         }
 
