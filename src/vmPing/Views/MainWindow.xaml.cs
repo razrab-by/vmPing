@@ -20,6 +20,7 @@ namespace vmPing.Views
         private ObservableCollection<Probe> _ProbeCollection = new ObservableCollection<Probe>();
         private Dictionary<string, string> _Aliases = new Dictionary<string, string>();
         private ObservableCollection<ProbeStatus> _TrayNegativeStatusList = new ObservableCollection<ProbeStatus>();
+        private bool _exiting;
 
         private System.Windows.Forms.NotifyIcon NotifyIcon;
 
@@ -274,7 +275,7 @@ namespace vmPing.Views
 
         private void ProbeOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (NotifyIcon == null)
+            if (NotifyIcon == null || _exiting)
                 return;
 
             if (e.PropertyName == "Status")
@@ -812,6 +813,7 @@ namespace vmPing.Views
                 System.Windows.Forms.ToolStripMenuItem menuExit = new System.Windows.Forms.ToolStripMenuItem("Exit vmPing");
                 menuExit.Click += (s, args) =>
                 {
+                    _exiting = true;
                     NotifyIcon.Dispose();
                     Application.Current.Shutdown();
                 };
