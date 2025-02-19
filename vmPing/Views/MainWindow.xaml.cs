@@ -50,6 +50,9 @@ namespace vmPing.Views
             ProbeItemsControl.ItemsSource = _ProbeCollection;
 
             _TrayNegativeStatusList.Add(ProbeStatus.Down);
+
+            CreateTrayIcon();
+            RestoreFromTray();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -114,7 +117,7 @@ namespace vmPing.Views
         {
             if (string.IsNullOrWhiteSpace(selectedFavorite))
             {
-              return;
+                return;
             }
 
             RemoveAllProbes();
@@ -199,7 +202,7 @@ namespace vmPing.Views
             CommandBindings.Add(new CommandBinding(AddProbeCommand, AddProbeExecute));
             CommandBindings.Add(new CommandBinding(MultiInputCommand, MultiInputWindowExecute));
             CommandBindings.Add(new CommandBinding(StatusHistoryCommand, StatusHistoryExecute));
-            
+
             InputBindings.Add(new InputBinding(
                 OptionsCommand,
                 new KeyGesture(Key.F10)));
@@ -775,37 +778,7 @@ namespace vmPing.Views
             WindowState = WindowState.Minimized;
             try
             {
-                if (NotifyIcon == null)
-                {
-                    // Build context menu for tray icon.
-                    System.Windows.Forms.ContextMenuStrip menuStrip = new System.Windows.Forms.ContextMenuStrip();
-                    System.Windows.Forms.ToolStripMenuItem menuOptions = new System.Windows.Forms.ToolStripMenuItem("Options");
-                    menuOptions.Click += (s, args) => OptionsExecute(null, null);
-                    System.Windows.Forms.ToolStripMenuItem menuStatusHistory = new System.Windows.Forms.ToolStripMenuItem("Status History");
-                    menuStatusHistory.Click += (s, args) => StatusHistoryExecute(null, null);
-                    System.Windows.Forms.ToolStripMenuItem menuExit = new System.Windows.Forms.ToolStripMenuItem("Exit vmPing");
-                    menuExit.Click += (s, args) =>
-                    {
-                        NotifyIcon.Dispose();
-                        Application.Current.Shutdown();
-                    };
-
-                    menuStrip.Items.Add(menuOptions);
-                    menuStrip.Items.Add(menuStatusHistory);
-                    menuStrip.Items.Add(new System.Windows.Forms.ToolStripSeparator());
-                    menuStrip.Items.Add(menuExit);
-
-                    // Create tray icon.
-                    NotifyIcon = new System.Windows.Forms.NotifyIcon
-                    {
-                        Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/vmPing-green.ico")).Stream),
-                        Text = "vmPing",
-                        ContextMenuStrip = menuStrip
-                    };
-                    NotifyIcon.MouseUp += NotifyIcon_MouseUp;
-                }
-                if (NotifyIcon != null)
-                NotifyIcon.Visible = true;
+                CreateTrayIcon();
             }
             catch
             {
@@ -813,9 +786,47 @@ namespace vmPing.Views
             }
         }
 
+        private void CreateTrayIcon()
+        {
+            if (NotifyIcon == null)
+            {
+                // Build context menu for tray icon.
+                System.Windows.Forms.ContextMenuStrip menuStrip = new System.Windows.Forms.ContextMenuStrip();
+                System.Windows.Forms.ToolStripMenuItem menuOptions = new System.Windows.Forms.ToolStripMenuItem("Options");
+                menuOptions.Click += (s, args) => OptionsExecute(null, null);
+                System.Windows.Forms.ToolStripMenuItem menuStatusHistory = new System.Windows.Forms.ToolStripMenuItem("Status History");
+                menuStatusHistory.Click += (s, args) => StatusHistoryExecute(null, null);
+                System.Windows.Forms.ToolStripMenuItem menuExit = new System.Windows.Forms.ToolStripMenuItem("Exit vmPing");
+                menuExit.Click += (s, args) =>
+                {
+                    NotifyIcon.Dispose();
+                    Application.Current.Shutdown();
+                };
+
+                menuStrip.Items.Add(menuOptions);
+                menuStrip.Items.Add(menuStatusHistory);
+                menuStrip.Items.Add(new System.Windows.Forms.ToolStripSeparator());
+                menuStrip.Items.Add(menuExit);
+
+                // Create tray icon.
+                NotifyIcon = new System.Windows.Forms.NotifyIcon
+                {
+                    Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/vmPing-green.ico")).Stream),
+                    Text = "vmPing",
+                    ContextMenuStrip = menuStrip
+                };
+                NotifyIcon.MouseUp += NotifyIcon_MouseUp;
+            }
+
+            if (NotifyIcon != null)
+                NotifyIcon.Visible = true;
+        }
+
         private void RestoreFromTray()
         {
-            NotifyIcon.Visible = false;
+            // Do not hide the main window
+            // NotifyIcon.Visible = false;
+
             WindowState = WindowState.Minimized;
             Visibility = Visibility.Visible;
             Show();
