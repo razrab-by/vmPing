@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using vmPing.Classes;
 using vmPing.Properties;
 
@@ -46,12 +47,13 @@ namespace vmPing.Views
             LoadFavorites();
             LoadAliases();
             Configuration.Load();
-            RefreshGuiState(true);
 
             // Set items source for main GUI ItemsControl.
             ProbeItemsControl.ItemsSource = _ProbeCollection;
 
             _TrayNegativeStatusList.Add(ProbeStatus.Down);
+     
+            Dispatcher.BeginInvoke(new Action(() => { RefreshGuiState(true); }), DispatcherPriority.ApplicationIdle);            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
